@@ -31,7 +31,7 @@ export const CryptoList = ({ cryptos, loading, onRefresh }: CryptoListProps) => 
       { backgroundColor: isDarkMode ? '#1a1a1a' : '#fff' }
     ]}>
       <FavoriteIcon
-        isFavorite={isFavorite(item.id)}
+        isActive={isFavorite(item.id)}
         onPress={() => toggleFavorite(item.id)}
         size={20}
       />

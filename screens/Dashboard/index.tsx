@@ -8,10 +8,12 @@ import {
 import { useCryptoStore } from '../../stores/crypto';
 import { CryptoList } from './components/List';
 import { Toggle } from './components/Toggle';
+import { SearchBar } from './components/SearchBar';
 
 export default function DashboardScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const [showFavorites, setShowFavorites] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const {
     cryptos,
     loading,
@@ -25,9 +27,22 @@ export default function DashboardScreen() {
   }, []);
 
   const filteredCryptos = useMemo(() => {
-    if (!showFavorites) return cryptos;
-    return cryptos.filter(crypto => isFavorite(crypto.id));
-  }, [cryptos, showFavorites, isFavorite]);
+    let filtered = cryptos;
+
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(crypto =>
+        crypto.name.toLowerCase().includes(query) ||
+        crypto.symbol.toLowerCase().includes(query)
+      );
+    }
+
+    if (showFavorites) {
+      filtered = filtered.filter(crypto => isFavorite(crypto.id));
+    }
+
+    return filtered;
+  }, [cryptos, showFavorites, isFavorite, searchQuery]);
 
   if (error) {
     return (
@@ -44,10 +59,16 @@ export default function DashboardScreen() {
       styles.container,
       { backgroundColor: isDarkMode ? '#000' : '#f5f5f5' }
     ]}>
-      <Toggle
-        showFavorites={showFavorites}
-        onToggle={() => setShowFavorites(!showFavorites)}
-      />
+      <View style={styles.header}>
+        <SearchBar
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <Toggle
+          showFavorites={showFavorites}
+          onToggle={() => setShowFavorites(!showFavorites)}
+        />
+      </View>
       <View style={styles.divider} />
       <CryptoList
         cryptos={filteredCryptos}
@@ -61,6 +82,13 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 12,
   },
   centerContainer: {
     flex: 1,

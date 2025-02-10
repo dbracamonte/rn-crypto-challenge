@@ -1,16 +1,15 @@
-// src/components/FavoriteIcon.tsx
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { TouchableOpacity } from 'react-native';
 
 interface FavoriteIconProps {
-  isFavorite: boolean;
+  isActive: boolean;
   onPress: () => void;
   size?: number;
 }
 
 export const FavoriteIcon = ({
-  isFavorite,
+  isActive,
   onPress,
   size = 24
 }: FavoriteIconProps) => {
@@ -23,8 +22,8 @@ export const FavoriteIcon = ({
         width={size}
         height={size}
         viewBox="0 0 24 24"
-        fill={isFavorite ? '#FFD700' : 'none'}
-        stroke={isFavorite ? '#FFD700' : '#666'}
+        fill={isActive ? '#FFD700' : 'none'}
+        stroke={isActive ? '#FFD700' : '#666'}
         strokeWidth={2}
       >
         <Path
