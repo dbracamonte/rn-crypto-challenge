@@ -4,6 +4,8 @@ import {
   Text,
   StyleSheet,
   useColorScheme,
+  SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import { useCryptoStore } from '../../stores/crypto';
 import { CryptoList } from './components/List';
@@ -55,27 +57,36 @@ export default function DashboardScreen() {
   }
 
   return (
-    <View style={[
+    <SafeAreaView style={[
       styles.container,
-      { backgroundColor: isDarkMode ? '#000' : '#f5f5f5' }
+      { backgroundColor: isDarkMode ? '#1a1a1a' : '#fff' }
     ]}>
-      <View style={styles.header}>
-        <SearchBar
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <Toggle
-          showFavorites={showFavorites}
-          onToggle={() => setShowFavorites(!showFavorites)}
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={isDarkMode ? '#1a1a1a' : '#f5f5f5'}
+      />
+      <View style={[
+        styles.container,
+        { backgroundColor: isDarkMode ? '#1a1a1a' : '#f5f5f5' }
+      ]}>
+        <View style={styles.header}>
+          <SearchBar
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+          <Toggle
+            showFavorites={showFavorites}
+            onToggle={() => setShowFavorites(!showFavorites)}
+          />
+        </View>
+        <View style={styles.divider} />
+        <CryptoList
+          cryptos={filteredCryptos}
+          loading={loading}
+          onRefresh={fetchCryptos}
         />
       </View>
-      <View style={styles.divider} />
-      <CryptoList
-        cryptos={filteredCryptos}
-        loading={loading}
-        onRefresh={fetchCryptos}
-      />
-    </View>
+    </SafeAreaView>
   );
 }
 

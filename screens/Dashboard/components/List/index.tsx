@@ -7,6 +7,7 @@ import {
   RefreshControl,
   useColorScheme,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import {
   cryptoService,
@@ -14,22 +15,32 @@ import {
 } from '../../../../services/cryptoService';
 import { useCryptoStore } from '../../../../stores/crypto';
 import { FavoriteIcon } from '../../../../components/FavoriteIcon';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../../../navigation';
 
-interface CryptoListProps {
+interface ICryptoListProps {
   cryptos: Crypto[];
   loading: boolean;
   onRefresh: () => void;
 }
 
-export const CryptoList = ({ cryptos, loading, onRefresh }: CryptoListProps) => {
+export const CryptoList = ({ cryptos, loading, onRefresh }: ICryptoListProps) => {
   const isDarkMode = useColorScheme() === 'dark';
+  const { navigate } = useNavigation<NavigationProp<RootStackParamList>>();
   const { toggleFavorite, isFavorite } = useCryptoStore();
 
   const renderItem = ({ item }: { item: Crypto }) => (
-    <View style={[
-      styles.cryptoItem,
-      { backgroundColor: isDarkMode ? '#1a1a1a' : '#fff' }
-    ]}>
+    <TouchableOpacity
+      onPress={() => navigate('Details', {
+        cryptoId: item.id,
+        cryptoName: item.name
+      })}
+      disabled={loading}
+      style={[
+        styles.cryptoItem,
+        { backgroundColor: isDarkMode ? '#1a1a1a' : '#fff' }
+      ]}
+    >
       <FavoriteIcon
         isActive={isFavorite(item.id)}
         onPress={() => toggleFavorite(item.id)}
@@ -66,7 +77,7 @@ export const CryptoList = ({ cryptos, loading, onRefresh }: CryptoListProps) => 
           {cryptoService.formatPercentage(item.quote.USD.percent_change_24h)}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   if (cryptos.length === 0 && loading) {
@@ -115,7 +126,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    // elevation: 2,
   },
   content: {
     flexDirection: 'row',

@@ -40,11 +40,11 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={[
       styles.container,
-      { backgroundColor: isDarkMode ? '#000' : '#fff' }
+      { backgroundColor: isDarkMode ? '#1a1a1a' : '#f5f5f5' }
     ]}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={isDarkMode ? '#000' : '#fff'}
+        backgroundColor={isDarkMode ? '#1a1a1a' : '#f5f5f5'}
       />
       <View style={styles.main}>
         <View style={styles.logoContainer}>
@@ -55,7 +55,7 @@ export default function LoginScreen() {
           />
           <Text style={[
             styles.title,
-            { color: isDarkMode ? '#fff' : '#000' }
+            { color: isDarkMode ? '#ccc' : '#666' }
           ]}>
             Crypto Tracker
           </Text>
