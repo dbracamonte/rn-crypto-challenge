@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface CryptoState {
   cryptos: Crypto[];
-  favorites: number[]; // Array de IDs de criptomonedas favoritas
+  favorites: number[];
   loading: boolean;
   error: string | null;
   fetchCryptos: () => Promise<void>;
@@ -27,7 +27,7 @@ export const useCryptoStore = create<CryptoState>()(
           const data = await cryptoService.getLatestListings();
           set({cryptos: data, loading: false});
         } catch (error) {
-          set({error: 'Error al cargar las criptomonedas', loading: false});
+          set({error: 'Error loading cryptocurrencies', loading: false});
         }
       },
       toggleFavorite: (cryptoId: number) => {
@@ -47,7 +47,7 @@ export const useCryptoStore = create<CryptoState>()(
     {
       name: 'crypto-storage',
       storage: createJSONStorage(() => AsyncStorage),
-      partialize: state => ({favorites: state.favorites}), // Solo persistimos los favoritos
+      partialize: state => ({favorites: state.favorites}),
     },
   ),
 );

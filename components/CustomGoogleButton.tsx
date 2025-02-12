@@ -34,20 +34,24 @@ export const CustomGoogleButton = ({
         disabled && styles.buttonDisabled,
         style
       ]}
+      testID='google-button'
     >
       {loading ? (
-        <ActivityIndicator color={isDarkMode ? '#fff' : '#000'} />
+        <ActivityIndicator
+        color={isDarkMode ? '#fff' : '#000'}
+        testID="loading-indicator"
+        />
       ) : (
         <>
           <Image
-            source={{ uri: 'google'}}
+            source={{ uri: 'google' }}
             style={styles.icon}
           />
           <Text style={[
             styles.text,
             isDarkMode ? styles.textDark : styles.textLight
           ]}>
-            Continuar con Google
+            Continue with Google
           </Text>
         </>
       )}

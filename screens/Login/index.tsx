@@ -66,7 +66,7 @@ export default function LoginScreen() {
             styles.subtitle,
             { color: isDarkMode ? '#ccc' : '#666' }
           ]}>
-            Inicia sesión para ver las últimas cotizaciones
+            Sign in to see the latest quotes and trends of your favorite cryptocurrencies.
           </Text>
           <CustomGoogleButton
             onPress={handleGoogleSignIn}

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation, type RouteProp } from '@react-navigation/native';
 import { InfoRow } from './components/InfoRow';
-import { FavoriteIcon } from '../../components/FavoriteIcon';
+import { FavoriteButton } from '../../components/FavoriteButton';
 import { useCryptoStore } from '../../stores/crypto';
 import { type Crypto, cryptoService } from '../../services/cryptoService';
 import type { RootStackParamList } from '../../navigation';
@@ -96,7 +96,7 @@ export default function DetailsScreen() {
           <Text style={[styles.symbol, { color: isDarkMode ? '#f5f5f5' : '#1a1a1a' }]}>
             {crypto.symbol}
           </Text>
-          <FavoriteIcon
+          <FavoriteButton
             isActive={isFavorite(crypto.id)}
             onPress={() => toggleFavorite(crypto.id)}
             size={24}
@@ -146,7 +146,7 @@ export default function DetailsScreen() {
       </View>
 
       <Text style={[styles.updateText, { color: isDarkMode ? '#666' : '#999' }]}>
-        Prices update automatically every 30 seconds
+        Prices update automatically every 30 seconds.
       </Text>
     </ScrollView>
   );

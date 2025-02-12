@@ -14,7 +14,7 @@ import {
   type Crypto,
 } from '../../../../services/cryptoService';
 import { useCryptoStore } from '../../../../stores/crypto';
-import { FavoriteIcon } from '../../../../components/FavoriteIcon';
+import { FavoriteButton } from '../../../../components/FavoriteButton';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../../navigation';
 
@@ -41,7 +41,7 @@ export const CryptoList = ({ cryptos, loading, onRefresh }: ICryptoListProps) =>
         { backgroundColor: isDarkMode ? '#1a1a1a' : '#fff' }
       ]}
     >
-      <FavoriteIcon
+      <FavoriteButton
         isActive={isFavorite(item.id)}
         onPress={() => toggleFavorite(item.id)}
         size={20}

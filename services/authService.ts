@@ -28,13 +28,13 @@ class AuthService {
       return null;
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        throw new Error('Login cancelado por el usuario');
+        throw new Error('Login cancelled by user');
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        throw new Error('Operación en progreso');
+        throw new Error('Operation in progress');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        throw new Error('Google Play Services no está disponible');
+        throw new Error('Google Play Services is not available');
       } else {
-        throw new Error('Error en el login: ' + error.message);
+        throw new Error('Login error: ' + error.message);
       }
     }
   }

@@ -5,7 +5,7 @@ import {
   StyleSheet,
   useColorScheme,
 } from 'react-native';
-import { SearchIcon } from '../../../../components/SearchIcon';
+import { SearchIcon } from '../../../../assets/SearchIcon';
 
 interface SearchBarProps {
   value: string;
